@@ -2,15 +2,21 @@
     &__list
         display: flex
         width: 100%
+        padding: 1rem 1rem
+        margin: 0rem
         li
             flex: 0 0 15%
+            display: flex
+            justify-content: center
+            align-items: center
             &:first-child
                 flex: 0 0 40%
+                justify-content: start
             &:nth-child(2)
                 flex: 0 0 20%
     &__header
         border-bottom: 2px solid #ccc
-        padding: 1rem 1rem
+        margin: 1rem 0rem
         li
             font-size:1.5rem
             font-weight: 600
@@ -32,3 +38,39 @@
             p
                 font-size: 1rem
                 color: #ccc
+    &__update--count
+        background: #fff
+    &__input
+        border: none
+        text-align: center
+        padding: 0.5rem 1rem
+        width: 4rem
+    &__clear
+        color: red
+        background: #fff
+    &__button
+        display: flex
+        justify-content: space-between
+        margin-top: 2rem 
+        a
+            display: flex
+            align-items: center
+            justify-content: center
+            gap:1rem
+            padding: 0.5rem 1rem
+            border: 2px solid red
+            border-radius: 10px
+            color: red
+            text-decoration: none
+            font-size: 1.2rem
+    &__buy
+        background-color: green
+        padding: 0.5rem 1rem
+        color: #fff
+        border-radius: 10px
+        font-size: 1.2rem
+    &__total
+        display: flex
+        justify-content: end
+        p
+            font-size: 1.5rem
