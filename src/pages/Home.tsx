@@ -1,22 +1,15 @@
-import type { dataProduct } from '../App'
+import type {dataProductProps } from "../../types/product"
 import { useEffect, useState } from 'react';
 import { MdAddShoppingCart, MdClose } from "react-icons/md";
-import { IoMdAdd, IoIosRemove } from "react-icons/io";
-
-interface CartItems {
-    id: number
-    count: number
-}
+import { IoMdAdd, IoIosRemove } from "react-icons/io"; 
+import { useCartStronge } from "../../lib/data/dataCart"
 export default function Home() {
+    const {cartItems,setCartItems} = useCartStronge()
     const keyLocalStorageListSP = "DANHSACHSP";
     const keyLocalStorageItemCart = "DANHSACHITEMCART";
     const raw = localStorage.getItem(keyLocalStorageListSP);
-    const productList: dataProduct[] = raw ? JSON.parse(raw) : [];
+    const productList: dataProductProps[] = raw ? JSON.parse(raw) : [];
     const [quantity, setQuantity] = useState<number>(1)
-    const [cartItems, setcartItems] = useState<CartItems[]>(() => {
-        const carShopping = localStorage.getItem(keyLocalStorageItemCart);
-        return carShopping ? JSON.parse(carShopping) : [];
-    })
     const [modalQuantity, setModalQuantity] = useState({
         open: false,
         name: "",
@@ -42,10 +35,10 @@ export default function Home() {
     const handleAddCart = () => {
         const ItemCartId = cartItems.find(i => i.id === modalQuantity.id)
         if (ItemCartId) {
-            setcartItems(prev => prev.map((i) => i.id == modalQuantity.id ? { ...i, count: i.count + quantity } : i))
+            setCartItems(prev => prev.map((i) => i.id == modalQuantity.id ? { ...i, count: i.count + quantity } : i))
         }
         else {
-            setcartItems(prev => [...prev, { id: modalQuantity.id, count: quantity }])
+            setCartItems(prev => [...prev, { id: modalQuantity.id, count: quantity }])
         }
     }
     useEffect(() => {
@@ -81,26 +74,26 @@ export default function Home() {
                     )}
                 </div>
             </div>
-            <div className={`Modal__fixed ${modalQuantity.open ? "active" : ""}`}>
-                <div className="Modal__quantity">
-                    <div className="Modal__header">
-                        <button className="btn Modal_button-close" onClick={closeModel}>
+            <div className={`modal__fixed ${modalQuantity.open ? "active" : ""}`}>
+                <div className="modal__quantity">
+                    <div className="modal__header">
+                        <button className="btn modal_button-close" onClick={closeModel}>
                             <MdClose size={20} />
                         </button>
                     </div>
-                    <div className="Modal__Info">
+                    <div className="modal__Info">
                         <h2>{modalQuantity.name}</h2>
-                        <div className="Modal__img_product">
+                        <div className="modal__img_product">
                             {modalQuantity.src && <img src={modalQuantity.src} />}
                         </div>
-                        <form onSubmit={handleAddCart} className="Modal__form_addcart" onChange={handleChanhge}>
+                        <form onSubmit={handleAddCart} className="modal__form_addcart" onChange={handleChanhge}>
                             <input type="hidden" name="id" value={modalQuantity.id} />
-                            <div className="Modal_form">
+                            <div className="modal_form">
                                 <button type='button' className={`btn btn_update-quantity ${quantity >= modalQuantity.count ? "disabled" : ""}`} onClick={() => setQuantity(quantity => quantity + 1)}><IoMdAdd /></button>
                                 <input type="number" min={1} value={quantity} onChange={(e) => setQuantity(Number(e.target.value))} />
                                 <button type='button' className={`btn btn_update-quantity ${quantity <= 0 ? "disabled" : ""}`} onClick={() => setQuantity(quantity => quantity - 1)}><IoIosRemove /></button>
                             </div>
-                            <button type='submit' className=' Modal__btn_addcart'>Add to cart</button>
+                            <button type='submit' className=' modal__btn_addcart'>Add to cart</button>
                         </form>
                     </div>
                 </div>

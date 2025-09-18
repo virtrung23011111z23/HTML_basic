@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom"
 import { MdOutlineShoppingCartCheckout } from "react-icons/md";
+import { useCartStronge} from "../../lib/data/dataCart"
 export default function Header() {
+    const { cartItems } =useCartStronge()
     return (
         <>
             <div className="header-container">
@@ -13,11 +15,11 @@ export default function Header() {
                         <div className="header-navbar">
                             <Link to="/">HOME</Link>
                             <Link to="/">ABOUT</Link>
-                            <Link to="/">BILLS</Link>
+                            <Link to="/order">ORDER</Link>
                             <Link to="/cart" className="Shoppingcart">
                                 <MdOutlineShoppingCartCheckout size={25} />
                                 <div className="Shoppingcart_number-card">
-                                    <p>3</p>
+                                    <p>{cartItems.length}</p>
                                 </div>
                             </Link>
                         </div>

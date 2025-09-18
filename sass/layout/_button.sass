@@ -1,0 +1,20 @@
+.btn
+    padding: 1rem 2rem
+    border-radius: 10px
+    display: flex
+    align-items: center
+    justify-content: center
+    background: none
+    &_update-quantity 
+        pointer-events: auto
+        &.disabled
+            pointer-events: none
+            opacity: 0.5
+.btn-err
+    background-color: red
+    color: #fff 
+.btn-submit
+    background-color: blue
+    color: #fff 
+    &:disabled
+        background-color: #ccc 
